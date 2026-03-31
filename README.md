@@ -1,6 +1,6 @@
 # predictive-lead-scoring-scorecard
 An end-to-end lead scoring system using Logistic Regression and WOE binning to optimize sales conversion from 10% to 16.5%.
-```markdown
+
 # 🚀 End-to-End Lead Scoring System: Turning Free Traffic into Revenue
 
 ![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
@@ -45,7 +45,6 @@ FROM
 LEFT JOIN 
     user_behavior_log b ON a.user_id = b.user_id 
     AND b.log_date < a.AllocDate; 
-```
 
 ### Phase 2: Interpretative Modeling & WOE Binning
 Using Python and the `scorecardpy` library, continuous and categorical variables were binned using Weight of Evidence (WOE). Features with high Information Value (IV) were selected to train a Logistic Regression model.
