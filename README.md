@@ -45,7 +45,7 @@ FROM
 LEFT JOIN 
     user_behavior_log b ON a.user_id = b.user_id 
     AND b.log_date < a.AllocDate; 
-
+```
 ### Phase 2: Interpretative Modeling & WOE Binning
 Using Python and the `scorecardpy` library, continuous and categorical variables were binned using Weight of Evidence (WOE). Features with high Information Value (IV) were selected to train a Logistic Regression model.
 
@@ -65,7 +65,7 @@ bins = sc.woebin(dt_s, y="target")
 # Train Logistic Regression and scale to Scorecard
 lr = LogisticRegression(penalty='l1', C=0.9, solver='saga')
 card = sc.scorecard(bins, lr, xcolumns, points0=600, odds0=1/19, pdo=50)
-
+```
 ### Phase 3: Production Deployment via SQL
 Instead of relying on a complex API infrastructure to serve the Python model, **the scorecard rules were reverse-engineered into a native SQL script**. This allowed the model to run natively inside the Data Warehouse, automatically scoring millions of leads every night and routing them directly to the CRM.
 
