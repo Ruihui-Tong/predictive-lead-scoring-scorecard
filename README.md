@@ -1,4 +1,4 @@
-````markdown
+
 # 🚀 End-to-End Lead Scoring System: Turning Free Traffic into Revenue
 
 An end-to-end lead scoring system using Logistic Regression and WOE binning to optimize sales conversion from 10% to 16.5%.
