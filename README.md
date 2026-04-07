@@ -34,17 +34,17 @@ Before modeling, raw user profiles, behavioral logs, and historical campaign dat
 
 ```sql
 -- Snippet: Extracting historical lead behavior without data leakage
-SELECT 
-    a.user_id,
-    a.lead_source,
-    b.historical_claims,
-    DATEDIFF(a.AllocDate, b.last_active_date) AS days_since_active,
-    a.is_converted AS target
-FROM 
-    lead_allocation_base a
-LEFT JOIN 
-    user_behavior_log b ON a.user_id = b.user_id 
-    AND b.log_date < a.AllocDate; 
+SELECT
+    t1.user_id, 
+    t1.alloc_time, 
+    first_visit_time, 
+    last_visit_time, 
+    visit_cnt
+FROM tmp.tmp_user_GiftInsurance_alloc201912 t1 
+LEFT JOIN company_sdm.sdm_ins_user_visit_history_d t2 
+    ON t1.user_id = t2.user_id
+-- Core Action: Ensuring actions happened strictly BEFORE allocation time
+WHERE t2.last_visit_time < t1.alloc_time; 
 ```
 ### Phase 2: Interpretative Modeling & WOE Binning
 Using Python and the `scorecardpy` library, continuous and categorical variables were binned using Weight of Evidence (WOE). Features with high Information Value (IV) were selected to train a Logistic Regression model.
